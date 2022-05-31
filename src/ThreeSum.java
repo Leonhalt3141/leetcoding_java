@@ -5,49 +5,31 @@ import java.util.*;
  */
 
 class Solution15 {
-
-    List<List<Integer>> addAnswer(List<List<Integer>> answers, List<Integer> answer) {
-        if (answers.size() == 0) {
-            answers.add(answer);
-        } else {
-            for (List<Integer> element : answers) {
-                List<Integer> check = new ArrayList<>();
-                check.add(element.get(0));
-                check.add(element.get(1));
-                check.add(element.get(2));
-
-                for (int i = 0; i < 3; i++) {
-                    int value = answer.get(i);
-                    if (check.contains(value)) {
-                        check.remove((Integer) value);
-                    }
-                }
-
-                if (check.size() == 0) return answers;
-            }
-            answers.add(answer);
-        }
-        return answers;
-    }
     public List<List<Integer>> threeSum(int[] nums) {
-        int size = nums.length;
         List<List<Integer>> answers = new ArrayList<>();
+        int size = nums.length;
         if (size < 3) return answers;
 
-        for (int i=0; i<size-2; i++) {
-            for (int j=i+1; j<size-1; j++){
-                int rest = nums[i] + nums[j];
+        Arrays.sort(nums);
 
-                for (int k=j+1; k<size; k++) {
+        for (int index1 = 0; index1 < size - 2; index1++) {
+            if (index1 > 0 && nums[index1] == nums[index1-1]) {
+                continue;
+            }
+            int index2 = index1 + 1;
+            int index3 = size - 1;
 
-                    if (rest + nums[k] == 0) {
-                        List<Integer> answer = new ArrayList<>();
-                        answer.add(nums[i]);
-                        answer.add(nums[j]);
-                        answer.add(nums[k]);
+            while (index2 < index3) {
+                int sum = nums[index1] + nums[index2] + nums[index3];
+                if (sum == 0) {
+                    answers.add(Arrays.asList(nums[index1], nums[index2], nums[index3]));
+                    index3--;
 
-                        answers = addAnswer(answers, answer);
-                    }
+                    while (index2 < index3 && nums[index3] == nums[index3+1]) index3--;
+                } else if (sum > 0) {
+                    index3--;
+                } else {
+                    index2++;
                 }
             }
         }
