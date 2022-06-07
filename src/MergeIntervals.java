@@ -1,7 +1,5 @@
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 
 class Solution56 {
     public int[][] merge(int[][] intervals) {
@@ -9,7 +7,10 @@ class Solution56 {
 
         if (intervals.length > 1) {
             List<int[]> sorted = new ArrayList<>();
-            sortIntervals(intervals, sorted);
+            Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+            Collections.addAll(sorted, intervals);
+
+//            sortIntervals(intervals, sorted);
             mergeIntervals(answerList, 0, sorted);
         }
         else answerList.add(intervals[0]);
@@ -20,6 +21,30 @@ class Solution56 {
         return answer;
     }
 
+    int[][] mergeBYStack(int[][] intervals) {
+        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+        Stack<int[]> st = new Stack<>();
+
+        st.push(intervals[0]);
+
+        for (int i = 1; i < intervals.length; i++) {
+            int[] prev = st.peek();
+
+            if (!st.isEmpty() && prev[1] >= intervals[i][0]) {
+                st.pop();
+                int[] newInterval = new int[2];
+                newInterval[0] = Math.min(prev[0], intervals[i][0]);
+                newInterval[1] = Math.max(prev[1], intervals[i][1]);
+                st.push(newInterval);
+            } else st.push(intervals[i]);
+        }
+
+        int[][] answer = new int[st.size()][2];
+
+        for (int i = answer.length - 1; i >= 0; i--) answer[i] = st.pop();
+
+        return answer;
+    }
     void sortIntervals(int[][] intervals, List<int[]> sorted) {
         sorted.add(intervals[0]);
         for (int[] interval : Arrays.asList(intervals).subList(1, intervals.length)) {
