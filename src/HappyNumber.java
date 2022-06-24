@@ -4,23 +4,23 @@ import java.util.Set;
 
 class Solution202 {
     public boolean isHappy(int n) {
-        String number = calcNumber(String.valueOf(n));
         Set<Integer> check = new HashSet<>();
 
-        while (number.length() != 1 || !check.contains(Integer.parseInt(number))) {
-            number = calcNumber(number);
-            check.add(Integer.parseInt(number));
+        while (n != 1 && !check.contains(n)) {
+            check.add(n);
+            n = calcNumber(n);
         }
-        return number.equals("1");
+        return n == 1;
     }
 
-    String calcNumber(String number) {
+    int calcNumber(int n) {
         int value = 0;
-        char[] numbers = number.toCharArray();
-        for (char v : numbers) {
-            value += Math.pow(Character.getNumericValue(v), 2);
+        while (n > 0) {
+            int d = n % 10;
+            n /= 10;
+            value += d * d;
         }
-        return String.valueOf(value);
+        return value;
     }
 
 }
