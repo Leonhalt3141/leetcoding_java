@@ -1,13 +1,5 @@
 
 
-class ListNode {
-    int val;
-    ListNode next;
-    ListNode() {}
-    ListNode(int val) { this.val = val; }
-    ListNode(int val, ListNode next) {this.val = val; this.next = next; }
-}
-
 class SolutionListNode {
 
     public ListNode createNodesFromList(int[] list) {
@@ -76,50 +68,6 @@ class SolutionListNode {
 
         return firstNode.next;
 
-//        StringBuilder buf = new StringBuilder();
-//
-//        int digitTotal = l1.val +  l2.val;
-//
-//        int roundUp = 0;
-//
-//        if (digitTotal > 9) {
-//            buf.append(digitTotal - 10);
-//            roundUp = 1;
-//        } else buf.append(digitTotal);
-//
-//        ListNode node1 = l1.next;
-//        ListNode node2 = l2.next;
-//
-//        while (node1 != null || node2 != null) {
-//
-//            int value1 = 0;
-//            int value2 = 0;
-//
-//            if (node1 != null) {
-//                value1 = node1.val;
-//                node1 = node1.next;
-//            }
-//            if (node2 != null) {
-//                value2 = node2.val;
-//                node2 = node2.next;
-//            }
-//
-//            digitTotal = value1 + value2 + roundUp;
-//
-//            if (digitTotal > 9) {
-//                buf.insert(0, digitTotal - 10);
-//                roundUp = 1;
-//            }
-//            else {
-//                buf.insert(0, digitTotal);
-//                roundUp = 0;
-//            }
-//
-//        }
-//
-//        if (roundUp > 0) buf.insert(0, 1);
-//
-//        return createNodeFromString(buf.toString());
     }
 
     void printNodeValues(ListNode node) {
@@ -130,7 +78,6 @@ class SolutionListNode {
             buf.append(current.val).append(", ");
             current = current.next;
         }
-        System.out.println(buf);
     }
 }
 
