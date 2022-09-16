@@ -54,9 +54,38 @@ class Solution22 {
     }
 }
 
+
+class Solution22_02 {
+    public List<String> generateParenthesis(int n) {
+        List<String> answer = new ArrayList<>();
+        generate(answer, new StringBuilder(), 0, 0, n * 2);
+        return answer;
+    }
+
+    void generate(List<String> answer, StringBuilder current, int open, int close, int max) {
+        if (current.length() == max) {
+            answer.add(current.toString());
+            return;
+        }
+
+        if (open < max / 2) {
+            current.append("(");
+            generate(answer, current, open + 1, close, max);
+            current.deleteCharAt(current.length() - 1);
+        }
+
+        if (close < open) {
+            current.append(")");
+            generate(answer, current, open, close + 1, max);
+            current.deleteCharAt(current.length() - 1);
+        }
+
+    }
+}
+
 public class GenerateParentheses {
     public static void main(String[] args) {
-        Solution22 solution = new Solution22();
+        Solution22_02 solution = new Solution22_02();
 
         int n1 = 3;
         System.out.println(solution.generateParenthesis(n1));
