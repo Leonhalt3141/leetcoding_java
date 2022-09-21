@@ -53,13 +53,4 @@ class Solution18 {
 }
 
 public class FourSum {
-    public static void main(String[] args) {
-        Solution18 solution = new Solution18();
-
-        System.out.println(solution.fourSum(new int[]{1, 0, -1, 0, -2, 2}, 0));
-
-        System.out.println(solution.fourSum(new int[]{2, 2, 2, 2, 2}, 8));
-
-        System.out.println(solution.fourSum(new int[]{1000000000,1000000000,1000000000,1000000000}, -294967296));
-    }
 }
