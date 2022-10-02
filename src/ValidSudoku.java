@@ -1,6 +1,6 @@
 import java.util.HashMap;
 
-class Solution38 {
+class Solution36 {
     public boolean isValidSudoku(char[][] board) {
         for (int i = 0; i < 9; i++) {
             if (!checkRow(board, i)) return false;
