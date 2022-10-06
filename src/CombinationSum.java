@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 class Solution39 {
@@ -11,18 +10,16 @@ class Solution39 {
         return answer;
     }
 
-    void backtrack(List<List<Integer>> answer, List<Integer> comb, int k, int[] candidates, int target) {
-        int sum = 0;
-        for (int v : comb) sum += v;
+    void backtrack(List<List<Integer>> answer, List<Integer> comb, int k, int[] candidates, int remain) {
 
-        if (sum > target) {
+        if (remain < 0) {
             return;
-        } else if (sum == target) {
+        } else if (remain == 0) {
             answer.add(new ArrayList<>(comb));
         } else {
             for (int i = k; i < candidates.length; i++) {
                 comb.add(candidates[i]);
-                backtrack(answer, comb, i, candidates, target);
+                backtrack(answer, comb, i, candidates, remain - candidates[i]);
                 comb.remove(comb.size() - 1);
             }
         }
