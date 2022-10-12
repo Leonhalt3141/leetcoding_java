@@ -1,29 +1,26 @@
-
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Enumeration;
 import java.util.List;
-
 
 class Solution39 {
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        List<List<Integer>> answers = new ArrayList<>();
+        List<List<Integer>> answer = new ArrayList<>();
         Arrays.sort(candidates);
-        backtrack(answers, new ArrayList<>(), candidates, 0);
-
-        return answers;
+        backtrack(answer, new ArrayList<>(), 0, candidates, target);
+        return answer;
     }
 
-    void backtrack(List<List<Integer>> list, List<Integer> tempList, int[] nums, int start) {
-        if (tempList.size() == nums.length) {
-            list.add(new ArrayList<>(tempList));
-        }
-        else {
-            for (int i = start; i < nums.length; i++) {
-                if (tempList.contains(nums[i])) continue;
-                tempList.add(nums[i]);
-                backtrack(list, tempList, nums, i + 1);
-                tempList.remove(tempList.size() - 1);
+    void backtrack(List<List<Integer>> answer, List<Integer> comb, int k, int[] candidates, int remain) {
+
+        if (remain < 0) {
+            return;
+        } else if (remain == 0) {
+            answer.add(new ArrayList<>(comb));
+        } else {
+            for (int i = k; i < candidates.length; i++) {
+                comb.add(candidates[i]);
+                backtrack(answer, comb, i, candidates, remain - candidates[i]);
+                comb.remove(comb.size() - 1);
             }
         }
     }
