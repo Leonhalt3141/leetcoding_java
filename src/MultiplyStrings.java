@@ -1,34 +1,43 @@
 
 class Solution43 {
     public String multiply(String num1, String num2) {
-        int num1_size = num1.length();
-        int num2_size = num2.length();
 
+        if (num1.equals("0") || num2.equals("0")) return "0";
+
+        StringBuilder firstNumber = new StringBuilder(num1);
+        StringBuilder secondNumber = new StringBuilder(num2);
+
+        firstNumber.reverse();
+        secondNumber.reverse();
+
+        int N = firstNumber.length() + secondNumber.length();
         StringBuilder answer = new StringBuilder();
 
-        for (int i = 0; i < num2_size; i++) {
-            int a = num2.charAt(num2_size - i - 1) - '0';
-            int carry = 0;
-            for (int j = 0; j < num1_size; j++) {
-                int b = num1.charAt(num1_size - j - 1) - '0';
-                int calc = (a * b) + carry;
+        for (int i = 0; i < N; i++) answer.append(0);
 
-                if (i > 0) {
-                    int dummy = answer.charAt(num2_size - i - 1) - '0';
-                    calc += dummy;
-                }
+        for (int place2 = 0; place2 < secondNumber.length(); place2++) {
+            int digit2 = secondNumber.charAt(place2) - '0';
 
-                if (calc >= 10) {
-                    calc -= 10;
-                    carry = 1;
-                } else {
-                    carry = 0;
-                }
+            for (int place1 = 0; place1 < firstNumber.length(); place1++) {
+                int digit1 = firstNumber.charAt(place1) - '0';
 
-                answer.insert(0, calc);
+                int currentPos = place1 + place2;
 
+                int carry = answer.charAt(currentPos) - '0';
+                int multiplication = digit1 * digit2 + carry;
+
+                answer.setCharAt(currentPos, (char)(multiplication % 10 + '0'));
+
+                int value = (answer.charAt(currentPos + 1) - '0') + multiplication / 10;
+                answer.setCharAt(currentPos + 1, (char)(value + '0'));
             }
         }
+
+        if (answer.charAt(answer.length() - 1) == '0') {
+            answer.deleteCharAt(answer.length() - 1);
+        }
+        answer.reverse();
+
         return answer.toString();
     }
 }
