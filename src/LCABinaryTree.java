@@ -1,4 +1,4 @@
-import javafx.util.Pair;
+import java.util.AbstractMap.SimpleEntry;
 
 import java.util.Stack;
 
@@ -16,9 +16,9 @@ class Solution236{
     private static final int BOTH_DONE = 0;
 
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        Stack<Pair<TreeNode, Integer>> stack = new Stack<Pair<TreeNode, Integer>>();
+        Stack<SimpleEntry<TreeNode, Integer>> stack = new Stack<SimpleEntry<TreeNode, Integer>>();
 
-        stack.push(new Pair<TreeNode, Integer>(root, BOTH_PENDING));
+        stack.push(new SimpleEntry<TreeNode, Integer>(root, BOTH_PENDING));
 
         boolean one_node_found = false;
 
@@ -28,7 +28,7 @@ class Solution236{
 
         while (!stack.isEmpty()) {
 
-            Pair<TreeNode, Integer> top = stack.peek();
+            SimpleEntry<TreeNode, Integer> top = stack.peek();
             TreeNode parent_node = top.getKey();
             int parent_state = top.getValue();
 
@@ -66,11 +66,11 @@ class Solution236{
                 // Update the node state at the top of the stack
                 // Since we have visited one more child.
                 stack.pop();
-                stack.push(new Pair<TreeNode, Integer>(parent_node, parent_state - 1));
+                stack.push(new SimpleEntry<TreeNode, Integer>(parent_node, parent_state - 1));
 
                 // Add the child node to the stack for traversal.
                 if (child_node != null) {
-                    stack.push(new Pair<TreeNode, Integer>(child_node, BOTH_PENDING));
+                    stack.push(new SimpleEntry<TreeNode, Integer>(child_node, BOTH_PENDING));
                 }
             } else {
 
